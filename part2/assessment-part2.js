@@ -44,7 +44,15 @@ function noWeakLink() {
     url: '/api/users'
   })
   // CODE HERE...
-
+  // .then(response => console.log(response.data))
+  .then(response => {
+    firstUser = response.data[0];
+    return response;
+  })
+  .then(response => {
+    thirdUser = response.data[2];
+    return response.data[9];
+  })
 }
 
 
@@ -75,7 +83,7 @@ function large() {
 }
 // CODE HERE...
 
-
+boundToElephant = large.bind(elephant);
 
 // *************
 // * PROBLEM 3 *
@@ -89,7 +97,10 @@ function large() {
 
 // CODE HERE...
 
-
+function deathStar(cap, crew) {
+  let newFunc = cap.bind(crew);
+  return newFunc;
+}
 
 // *************
 // * PROBLEM 4 *
@@ -104,7 +115,11 @@ function large() {
 
 // CODE HERE...
 
-
+function accountingOffice(ass) {
+  return (lia) => {
+    return ass + lia;
+  }
+}
 
 // *************
 // * PROBLEM 5 *
@@ -129,7 +144,16 @@ function large() {
 
 // CODE HERE...
 
-
+function forgetter(name) {
+  let remember = [];
+  return function rememberall(item) {
+    remember.push(item);
+    return {
+      name,
+      remember
+    }
+  }
+}
 
 // *************
 // * PROBLEM 6 *
@@ -156,3 +180,43 @@ function large() {
 // NOTE: Neither hunger nor danger should be able to exceed 100 or drop below 0.
 
 // CODE HERE...
+
+function frodo(startingHungerValue, startingDangerValue) {
+  this.hunger = startingHungerValue;
+  this.danger = startingDangerValue;
+  return {
+    dinnerOverFire: () => {
+      if ( this.hunger - 25 <= 0 ) {
+        this.hunger = 0;
+      } else {
+        this.hunger -= 25;
+      }
+      if ( this.danger + 40 >= 100 ) {
+        this.danger = 100;
+      } else {
+        this.danger += 40;
+      }
+      return {
+        hunger: this.hunger,
+        danger: this.danger
+      }
+    },
+
+    hidingInBush: () => {
+      if ( this.hunger + 35 >= 100 ) {
+        this.hunger = 100;
+      } else {
+        this.hunger += 35;
+      }
+      if ( this.danger - 20 <= 0 ) {
+        this.danger = 0;
+      } else {
+        this.danger -= 20;
+      }
+      return {
+        hunger: this.hunger,
+        danger: this.danger
+      }
+    }
+  }
+}
